@@ -1,5 +1,6 @@
 package br.com.caelum;
 
+import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -13,20 +14,28 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 @Configuration
 @EnableTransactionManagement
 public class JpaConfigurator {
-
-	@Bean
-	public DataSource getDataSource() {
-	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-	    dataSource.setDriverClassName("org.postgresql.Driver");
-	    dataSource.setUrl("jdbc:postgresql://localhost/projeto_jpa_2");
-	    dataSource.setUsername("postgres");
+	
+	// datasource que trabalha com pool de conexões - JpaConfigurator
+	@Bean(destroyMethod = "close") // garante que as conexões sejam fechadas ao parar o tomcat
+	public DataSource getDatSource() throws PropertyVetoException {
+	    ComboPooledDataSource dataSource = new ComboPooledDataSource();
+	    dataSource.setDriverClass("org.postgresql.Driver");
+	    dataSource.setUser("postgres");
 	    dataSource.setPassword("postgres");
+	    dataSource.setJdbcUrl("jdbc:postgresql://localhost/projeto_jpa_2");
+
+	    dataSource.setMinPoolSize(3); // número de conexões iniciais
+	    dataSource.setMaxPoolSize(5);  // número máximo de conexões
+	    dataSource.setNumHelperThreads(15); //criar threads, trabalhar de forma assíncrona
+	    dataSource.setIdleConnectionTestPeriod(1); // a cada segundo é testado conexões ociosas
 
 	    return dataSource;
+	    
 	}
 
 	@Bean
