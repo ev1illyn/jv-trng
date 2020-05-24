@@ -82,7 +82,7 @@ public class ProdutoDao {
 				
 		Path<String> nomePath = root.<String> get("nome");
 		Path<Integer> lojaPath = root.<Loja> get("loja").<Integer> get("id");
-		Path<Integer> categoriaPath = root.join("categoria").<Integer> get("id");
+		Path<Integer> categoriaPath = root.join("categorias").<Integer> get("id");
 		
 		List<Predicate> predicates = new ArrayList<>();
 
@@ -102,6 +102,8 @@ public class ProdutoDao {
 		query.where((Predicate[]) predicates.toArray(new Predicate[0]));
 
 		TypedQuery<Produto> typedQuery = em.createQuery(query);
+		typedQuery.setHint("org.hibernate.cacheable", "true");
+		
 		return typedQuery.getResultList();
 
 	}
