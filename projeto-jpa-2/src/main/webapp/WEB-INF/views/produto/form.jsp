@@ -15,6 +15,10 @@
 		<div class="panel-body">
 			<form class="form-group" method="post" action="<c:url value="/produto/cadastrar"/>" >
 				<div class="form-group">
+					<input type="hidden" name="versao" value="${produto.versao}">
+				</div>
+
+				<div class="form-group">
 					<label for="nome">
 						Nome:
 					</label>

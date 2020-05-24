@@ -17,6 +17,7 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
@@ -58,6 +59,17 @@ public class Produto {
 	@Valid
 	@ManyToOne
 	private Loja loja;
+	
+    @Version
+    private int versao; // lock otimista, atributo de versionamento no modelo 
+    //private Date versao;
+
+    public int getVersao() {
+        return this.versao;
+    }
+    public int setVersao(int versao) {
+        return this.versao = versao;
+    }
 	
 	
 	public String getDescricao() {
