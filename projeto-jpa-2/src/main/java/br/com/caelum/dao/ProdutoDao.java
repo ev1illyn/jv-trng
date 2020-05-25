@@ -84,10 +84,10 @@ public class ProdutoDao {
 		Path<Integer> lojaPath = root.<Loja> get("loja").<Integer> get("id");
 		Path<Integer> categoriaPath = root.join("categorias").<Integer> get("id");
 		
-		List<Predicate> predicates = new ArrayList<>();
+		List<Predicate> predicates = new ArrayList<Predicate>();
 
 		if (!nome.isEmpty()) {
-			Predicate nomeIgual = criteriaBuilder.like(nomePath, nome);
+			Predicate nomeIgual = criteriaBuilder.like(criteriaBuilder.lower(nomePath), "%" + nome.toLowerCase() + "%");
 			predicates.add(nomeIgual);
 		}
 		if (categoriaId != null) {
@@ -103,6 +103,8 @@ public class ProdutoDao {
 
 		TypedQuery<Produto> typedQuery = em.createQuery(query);
 		typedQuery.setHint("org.hibernate.cacheable", "true");
+		
+		System.out.println(typedQuery.getResultList());
 		
 		return typedQuery.getResultList();
 
