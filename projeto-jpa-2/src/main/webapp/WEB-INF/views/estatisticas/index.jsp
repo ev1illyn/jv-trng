@@ -17,18 +17,16 @@
 							<tr>
 								<th>Hit</th>
 								<th>Miss</th>
-								<th>Conexões</th>
+								<th>Número de Conexões</th>
+								<th>Número de Transações</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>Cache</td>
-								<!-- Hit -->
-								<td></td>
-								<!-- Miss -->
-								<td></td>
-								<! -- Conections -->
-								<td></td>
+							    <td>${statistics.queryCacheHitCount}</td> <!-- consultou no cache -->
+							    <td>${statistics.queryCacheMissCount}</td> <!-- consultou no banco -->
+							    <td>${statistics.connectCount}</td> <!-- número mínimo de conexões -->
+							    <td>${statistics.transactionCount}</td> <!-- número de transações -->
 							</tr>
 						</tbody>
 					</table>

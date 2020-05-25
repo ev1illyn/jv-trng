@@ -43,12 +43,9 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@NotEmpty
 	private String nome;
-	@NotEmpty
 	private String linkDaFoto;
 	
-	@NotEmpty
 	@Column(columnDefinition="TEXT")
 	private String descricao;
 	
@@ -58,7 +55,7 @@ public class Produto {
 	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
 	@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	private List<Categoria> categorias = new ArrayList();
+	private List<Categoria> categorias = new ArrayList<Categoria>();
 	
 	@Valid
 	@ManyToOne

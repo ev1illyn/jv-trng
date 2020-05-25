@@ -24,10 +24,12 @@
 							href="<c:url value="/produto/${produto.id}/form" />" />Editar </a>
 					</p>
 					<p>
+						<c:if test="${not empty produto.categorias}">
 						<span class="label label-default">Categorias:</span>
-						<c:forEach items="${produto.categorias}" var="categoria">
-							<span class="label label-info">${categoria.nome}</span>
-						</c:forEach>
+							<c:forEach items="${produto.categorias}" var="categoria">
+								<span class="label label-info">${categoria.nome}</span>
+							</c:forEach>
+						</c:if>
 					</p>
 				</div>
 			</c:forEach>
