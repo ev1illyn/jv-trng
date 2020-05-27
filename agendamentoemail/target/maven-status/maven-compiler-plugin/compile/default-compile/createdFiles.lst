@@ -1,0 +1,5 @@
+br/com/alura/business/AgendamentoEmailBusiness.class
+br/com/alura/resources/AgendamentoEmailResource.class
+br/com/alura/JAXRSConfiguration.class
+br/com/alura/dao/AgendamentoEmailDao.class
+br/com/alura/entity/AgendamentoEmail.class
