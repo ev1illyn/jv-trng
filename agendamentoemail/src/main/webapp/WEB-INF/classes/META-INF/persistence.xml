@@ -7,7 +7,7 @@
 
    <persistence-unit name="agendamento">
 
-        <jta-data-source>java:/jboss/datasources/agendamentods</jta-data-source>
+        <jta-data-source>java:/jboss/datasources/agendamentodb</jta-data-source>
         
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

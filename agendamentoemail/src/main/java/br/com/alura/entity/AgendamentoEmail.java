@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class AgendamentoEmail {
@@ -13,10 +16,20 @@ public class AgendamentoEmail {
 	private Long id;
 	
 	@Column
+	@NotBlank(message="{agendamentoEmail.assunto.vazio}")
+	@Email(message="{agendamentoEmail.email.vazio}")
 	private String email;
 	
 	@Column
 	private Boolean enviado;
+	
+	@Column
+	@NotBlank(message="{agendamentoEmail.email.invalido}")
+	private String assunto;
+	
+	@Column
+	@NotBlank(message="{agendamentoEmail.mensagem.vazio}")
+	private String mensagem;
 	
 	public Long getId() {
 		return id;
@@ -35,5 +48,17 @@ public class AgendamentoEmail {
 	}
 	public void setEnviado(Boolean enviado) {
 		this.enviado = enviado;
+	}
+	public String getAssunto() {
+		return assunto;
+	}
+	public void setAssunto(String assunto) {
+		this.assunto = assunto;
+	}
+	public String getMensagem() {
+		return mensagem;
+	}
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 }
