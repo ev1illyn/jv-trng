@@ -11,7 +11,8 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="net.rhuanrocha" level="info">
+        <Logger name="net.evillyn" level="info">
+        <!-- <Logger name="net.rhuanrocha" level="info"> -->
             <AppenderRef ref="STDOUT"/>
             <AppenderRef ref="FILE"/>
         </Logger>

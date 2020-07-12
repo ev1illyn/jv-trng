@@ -7,11 +7,11 @@
 
    <persistence-unit name="agendamento">
 
-        <jta-data-source>java:/jboss/datasources/agendamentodb</jta-data-source> <!-- modifiquei essa merda -->
+        <jta-data-source>java:jboss/datasources/AgendamentoDS</jta-data-source> <!-- modifiquei essa merda -->
         
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/agendamentodb"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/agendamentodb"/>
             <property name="javax.persistence.jdbc.user" value="postgres" />
             <property name="javax.persistence.jdbc.password" value="postgres" />
             

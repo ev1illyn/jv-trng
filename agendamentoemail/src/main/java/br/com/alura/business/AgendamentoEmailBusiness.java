@@ -4,6 +4,10 @@ import java.util.*;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,10 +23,12 @@ import br.com.alura.interceptor.Logger;
 
 @Stateless // classe de negócio EJB, gerenciada pelo container do java ee
 @Logger // qualificador
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class AgendamentoEmailBusiness {
 
-	@Resource(lookup = "java:jboss/mail/AgendamentoMailSession") // faz lookup de recursos disponibilizados no servidor de aplicação
+	@Resource(lookup = "java:jboss/mail/AgendamentoSession") // faz lookup de recursos disponibilizados no servidor de aplicação
 	private Session sessaoEmail;
+	
 	private static String EMAIL_FROM = "mail.address";
 	private static String EMAIL_USER = "mail.smtp.user";
 	private static String EMAIL_PASSWORD = "mail.smtp.pass";
@@ -34,14 +40,23 @@ public class AgendamentoEmailBusiness {
 		return agendamentoEmailDao.listarAgendamentoEmail();
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void salvarAgendamentoEmail(@Valid AgendamentoEmail agendamentoEmail) throws BusinessException {
 
-		if (!agendamentoEmailDao.listarAgendamentosEmailPorEmail(agendamentoEmail.getEmail()).isEmpty()) {
+		if (!agendamentoEmailDao
+				.listarAgendamentosEmailPorEmail(agendamentoEmail
+						.getEmail())
+						.isEmpty()) {
 			throw new BusinessException("Que feio servidor! Esse e-mail já está agendado!");
 		}
 
 		agendamentoEmail.setEnviado(false);
 		agendamentoEmailDao.salvarAgendamentoEmail(agendamentoEmail);
+	}
+	
+	public void marcarEnviado(AgendamentoEmail agendamentoEmail) {
+		agendamentoEmail.setEnviado(true);
+		agendamentoEmailDao.alterarAgendamentoEmail(agendamentoEmail);
 	}
 
 	public List<AgendamentoEmail> listarAgendamentosEmailNaoEnviados() {

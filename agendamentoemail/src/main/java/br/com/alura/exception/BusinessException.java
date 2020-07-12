@@ -1,26 +1,19 @@
 package br.com.alura.exception;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BusinessException extends Exception{
 	
-	private List<String> mensagens;
+	private String mensagem;
 
 	public BusinessException() {
 		super();
-		mensagens = new ArrayList<String>();
-	}
-	public BusinessException(String mensagem) {
-		super(mensagem);
-		mensagens = new ArrayList<String>();
-		mensagens.add(mensagem);
 	}
 	
-	public List<String> getMensagens() {
-		return mensagens;
+	public BusinessException(String mensagem) {
+		super(mensagem);
+		this.mensagem = mensagem;
 	}
-	public void addMensagens(String mensagem) {
-		this.mensagens.add(mensagem);
+	
+	public String getMensagem() {
+		return mensagem;
 	}
 }

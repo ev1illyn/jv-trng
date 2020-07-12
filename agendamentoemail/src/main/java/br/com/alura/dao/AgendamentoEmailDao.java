@@ -17,7 +17,12 @@ public class AgendamentoEmailDao {
 	private EntityManager entityManager;
 	
 	public List<AgendamentoEmail> listarAgendamentoEmail(){
-		return entityManager.createQuery("select agendamentos from AgendamentoEmail agendamentos", AgendamentoEmail.class).getResultList();
+		return entityManager.createQuery("select agendamentos from AgendamentoEmail agendamentos"
+				, AgendamentoEmail.class).getResultList();
+	}
+	
+	public AgendamentoEmail alterarAgendamentoEmail(AgendamentoEmail agendamentoEmail) {
+		return entityManager.merge(agendamentoEmail);
 	}
 	
 	public void salvarAgendamentoEmail(AgendamentoEmail agendamentoEmail) {
