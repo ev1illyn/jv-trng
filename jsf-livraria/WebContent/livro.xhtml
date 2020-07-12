@@ -1,27 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"> <!-- declarando os componentes jsf no html -->
-	<h:body>
-		<h1>Novo Livro</h1>
-		<h:form>
-			<fieldset>
-				<legend>Dados do livro:</legend>
-				<h:panelGrid columns="2">
-					<h:outputLabel for="titulo" value="Título:" />
-					<h:inputText id="titulo" value="#{livroBean.livro.titulo}"/>
-					
-					<h:outputLabel for="isbn" value="ISBN:" />
-					<h:inputText id="isbn" value="#{livroBean.livro.isbn}"/>
-					
-					<h:outputLabel for="preco" value="Preço" />
-					<h:inputText id="preco" value="#{livroBean.livro.preco}"/>
-					
-					<h:outputLabel for="dataLancamento" value="Data de Lançamento:" />
-					<h:inputText id="dataLancamento" value="#{livroBean.livro.dataLancamento}"/>
-					
-					<h:commandButton value="gravar" action="#{livroBean.gravar}"/>
-				</h:panelGrid>
-			</fieldset>
-		</h:form>
-	</h:body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<!-- declarando os componentes jsf no html -->
+<h:body>
+	<h1>Novo Livro</h1>
+	<h:form>
+		<fieldset>
+			<legend>Dados do livro:</legend>
+			<h:panelGrid columns="2">
+
+				<h:outputLabel for="titulo" value="Título:" />
+				<h:inputText id="titulo" value="#{livroBean.livro.titulo}" />
+
+				<h:outputLabel for="isbn" value="ISBN:" />
+				<h:inputText id="isbn" value="#{livroBean.livro.isbn}" />
+
+				<h:outputLabel for="preco" value="Preço" />
+				<h:inputText id="preco" value="#{livroBean.livro.preco}" />
+
+				<h:outputLabel for="dataLancamento" value="Data de Lançamento:" />
+				<h:inputText id="dataLancamento"
+					value="#{livroBean.livro.dataLancamento}" />
+
+			</h:panelGrid>
+		</fieldset>
+
+		<fieldset>
+			<legend>Dados do autor:</legend>
+			<h:outputLabel for="autor" value="Selecione o Autor:"></h:outputLabel>
+			<h:selectOneMenu value="#{livroBean.autorId}" id="autor">
+
+				<f:selectItems value="#{livroBean.autores}" var="autor"
+					itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
+
+			</h:selectOneMenu>
+
+			<h:commandButton value="gravar autor"
+				action="#{livroBean.gravarAutor}" />
+
+			<h:dataTable id="autoresDoLivro" value="#{livroBean.autoresDoLivro}"
+				var="autor">
+				<h:column>
+					<h:outputText value="#{autor.nome}"></h:outputText>
+				</h:column>
+			</h:dataTable>
+		</fieldset>
+
+		<h:commandButton value="gravar livro" action="#{livroBean.gravar}" />
+
+	</h:form>
+
+	<fieldset>
+		<legend>Tabela de Livros:</legend>
+		<h:dataTable id="tabelaLivros" value="#{livroBean.livros}" var="livro">
+			<h:column>
+				<f:facet name="header">Título</f:facet>
+				<h:outputText value="#{livro.titulo}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">ISBN</f:facet>
+				<h:outputText value="#{livro.isbn}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Preço</f:facet>
+				<h:outputText value="#{livro.preco}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Data de Lançamento</f:facet>
+				<h:outputText value="#{livro.dataLancamento}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+	</fieldset>
+
+</h:body>
 </html>
