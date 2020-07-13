@@ -4,10 +4,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 <!-- declarando os componentes jsf no html -->
+<h:head/>
 <h:body>
 	<h1>Novo Livro</h1>
 	<h:form>
-		<h:messages/>
+		<h:messages id="messages"/>
 		<fieldset>
 			<legend>Dados do livro:</legend>
 			<h:panelGrid columns="2">
@@ -15,10 +16,13 @@
 				<h:outputLabel for="titulo" value="Título:" />
 				<h:inputText id="titulo" value="#{livroBean.livro.titulo}" required="true" requiredMessage="título obrigatório" validatorMessage="título não pode ser superior a 40">
 					<f:validateLength maximum="40"/>
+					<f:ajax event="blur" render="messages"/>
 				</h:inputText>
 
 				<h:outputLabel for="isbn" value="ISBN:" />
-				<h:inputText id="isbn" value="#{livroBean.livro.isbn}" validator="#{livroBean.comecaComDigitoUm}"/>
+				<h:inputText id="isbn" value="#{livroBean.livro.isbn}" validator="#{livroBean.comecaComDigitoUm}">
+					<f:ajax event="blur" render="messages"/>
+				</h:inputText>
 
 				<h:outputLabel for="preco" value="Preço" />
 				<h:inputText id="preco" value="#{livroBean.livro.preco}" validatorMessage="O preço não está entre os valores esperados de R$: 1,00 e 1.000,00">
@@ -44,10 +48,11 @@
 
 			</h:selectOneMenu>
 
-			<h:commandButton value="gravar autor"
-				action="#{livroBean.gravarAutor}" />
+			<h:commandButton value="gravar autor" action="#{livroBean.gravarAutor}">
+				<f:ajax execute="autor" render="tabelaAutores"></f:ajax>
+			</h:commandButton>
 
-			<h:dataTable id="autoresDoLivro" value="#{livroBean.autoresDoLivro}"
+			<h:dataTable id="tabelaAutores" value="#{livroBean.autoresDoLivro}"
 				var="autor">
 				<h:column>
 					<h:outputText value="#{autor.nome}"></h:outputText>
@@ -55,7 +60,9 @@
 			</h:dataTable>
 		</fieldset>
 
-		<h:commandButton value="gravar livro" action="#{livroBean.gravar}" />
+		<h:commandButton value="gravar livro" action="#{livroBean.gravar}">
+			<f:ajax execute="@form" render="@form :tabelaLivros"></f:ajax>
+		</h:commandButton>
 
 	</h:form>
 

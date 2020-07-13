@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h:head/>
 
 	<h:body>
 		<h1>Novo Autor</h1>
 		<h:form>
+			<h:messages id="messages"/>
 			<fieldset>
 				<legend>Dados do Autor</legend>
 				<h:panelGrid columns="2">
 					<h:outputLabel value="Nome:" for="nome" />
-					<h:inputText id="nome" value="#{autorBean.autor.nome}" />
+					<h:inputText id="nome" value="#{autorBean.autor.nome}" required="true" requiredMessage="Nome do autor obrigatório" validatorMessage="nome não pode ser superior a 40">
+						<f:validateLength maximum="40"/>
+						<f:ajax event="blur" render="messages"/>
+					</h:inputText>
+					
 					<h:commandButton value="Gravar" action="#{autorBean.gravar}" />
 				</h:panelGrid>
 			</fieldset>
 		</h:form>
+		
+		<fieldset>
+		<legend>Tabela de Autores:</legend>
+		<h:dataTable id="tabelaAutores" value="#{autorBean.autores}" var="autores">
+			<h:column>
+				<h:outputText value="#{autores.nome}"></h:outputText>
+			</h:column>
+		</h:dataTable>
+	</fieldset>
+		
 	</h:body>
 
 </html>
