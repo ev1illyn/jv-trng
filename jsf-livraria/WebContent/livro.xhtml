@@ -2,11 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <!-- declarando os componentes jsf no html -->
-<h:head/>
-<h:body>
-	<h1>Novo Livro</h1>
+	
+<ui:composition template="_template.xhtml">
+	<ui:define name="titulo">
+		<h1>Novo Livro</h1>
+	</ui:define>
+	<ui:define name="conteudo">
 	<h:form>
 		<h:messages id="messages"/>
 		<fieldset>
@@ -67,30 +71,31 @@
 		</h:commandButton>
 
 	</h:form>
-
-	<fieldset>
-		<legend>Tabela de Livros:</legend>
-		<h:dataTable id="tabelaLivros" value="#{livroBean.livros}" var="livro">
-			<h:column>
-				<f:facet name="header">Título</f:facet>
-				<h:outputText value="#{livro.titulo}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">ISBN</f:facet>
-				<h:outputText value="#{livro.isbn}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Preço</f:facet>
-				<h:outputText value="#{livro.preco}"></h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Data de Lançamento</f:facet>
-				<h:outputText value="#{livro.dataLancamento.time}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-				</h:outputText>
-			</h:column>
-		</h:dataTable>
-	</fieldset>
-
-</h:body>
+	
+		<fieldset>
+			<legend>Tabela de Livros:</legend>
+			<h:dataTable id="tabelaLivros" value="#{livroBean.livros}" var="livro">
+				<h:column>
+					<f:facet name="header">Título</f:facet>
+					<h:outputText value="#{livro.titulo}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">ISBN</f:facet>
+					<h:outputText value="#{livro.isbn}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Preço</f:facet>
+					<h:outputText value="#{livro.preco}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data de Lançamento</f:facet>
+					<h:outputText value="#{livro.dataLancamento.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+		</fieldset>
+	</ui:define>
+	<ui:define name="rodape">Livro </ui:define>
+</ui:composition>
 </html>
