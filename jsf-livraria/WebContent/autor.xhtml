@@ -10,6 +10,7 @@
 			<h1>Novo Autor</h1>
 		</ui:define>
 		<ui:define name="conteudo">
+		
 			<h:form>
 				<h:messages id="messages"/>
 				<fieldset>
@@ -21,19 +22,39 @@
 							<f:ajax event="blur" render="messages"/>
 						</h:inputText>
 						
-						<h:commandButton value="Gravar" action="#{autorBean.gravar}" />
+						<h:commandButton value="Gravar" action="#{autorBean.gravar}">
+							<f:ajax execute="@form" render="@form :tabelaDeAutores:tabelaAutores"></f:ajax>
+						</h:commandButton>
 					</h:panelGrid>
 				</fieldset>
 			</h:form>
 			
-			<!-- <fieldset>
-			<legend>Tabela de Autores:</legend>
-			<h:dataTable id="tabelaAutores" value="#{autorBean.autores}" var="autores">
-				<h:column>
-					<h:outputText value="#{autores.nome}"></h:outputText>
-				</h:column>
-			</h:dataTable>
-			</fieldset> -->
+			<h:form id="tabelaDeAutores">
+				<fieldset>
+					<legend>Tabela de Autores:</legend>
+					<h:dataTable id="tabelaAutores" value="#{autorBean.autores}" var="autores">
+						<f:facet name="header">Autor</f:facet>
+						<h:column>
+							<h:outputText value="#{autores.nome}"></h:outputText>
+						</h:column>
+						<h:column>
+							<h:commandLink action="#{autorBean.editar(autores)}">
+								<h:graphicImage library="img" name="edit.png" width="20"
+									height="20"></h:graphicImage>
+								<!-- <f:ajax render="@form"/> -->
+							</h:commandLink>
+						</h:column>
+						<h:column>
+							<h:commandLink action="#{autorBean.remover(autores)}">
+								<h:graphicImage library="img" name="remove.png" width="20"
+									height="20"></h:graphicImage>
+								<!-- <f:ajax render="@form"/> -->
+							</h:commandLink>
+						</h:column>
+					</h:dataTable>
+				</fieldset>
+			</h:form>
+			
 		</ui:define>
 		<ui:define name="rodape">Autor </ui:define>
 	</ui:composition>

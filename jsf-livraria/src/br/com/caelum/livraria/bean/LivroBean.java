@@ -1,5 +1,6 @@
 package br.com.caelum.livraria.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -16,7 +17,7 @@ import br.com.caelum.livraria.util.RedirectView;
 
 @ManagedBean //classe gerenciada pelo jsf
 @ViewScoped
-public class LivroBean {
+public class LivroBean implements Serializable{
 
 	private Livro livro = new Livro();
 	private Integer autorId;
@@ -38,7 +39,14 @@ public class LivroBean {
 	}
 	
 	public List<Autor> getAutoresDoLivro() {
+		for (Autor a : this.livro.getAutores()) {
+			System.out.println(a.getNome());
+		}
 		return this.livro.getAutores();
+	}
+
+	public void setAutoresDoLivro(List<Autor> autores) {
+		this.livro.setAutores(autores);
 	}
 	
 	public List<Livro> getLivros() {
@@ -68,11 +76,26 @@ public class LivroBean {
 			FacesContext.getCurrentInstance().addMessage("autor", new FacesMessage("Livro deve ter pelos menos um autor"));
 			return;
 		}
-
-		new DAO<Livro>(Livro.class).adiciona(this.livro);
+		
+		if (this.livro.getId() == null) {
+			new DAO<Livro>(Livro.class).adiciona(this.livro);
+		} else {
+			new DAO<Livro>(Livro.class).atualiza(this.livro);
+		}
 		
 		this.livro = new Livro();
 	}
-
+	
+	public void editar(Livro livro) {
+		this.livro = livro;
+	}
+	
+	public void remover(Livro livro) {
+		new DAO<Livro>(Livro.class).remove(livro);
+	}
+	
+	public void removerAutorDoLivro(Autor autor) {
+	    this.livro.removeAutor(autor);
+	}
 	
 }
