@@ -20,10 +20,25 @@ import br.com.caelum.livraria.util.RedirectView;
 public class LivroBean implements Serializable{
 
 	private Livro livro = new Livro();
+
 	private Integer autorId;
-	
+
+	private Integer livroId;
+
+	public Integer getLivroId() {
+		return livroId;
+	}
+
+	public void setLivroId(Integer livroId) {
+		this.livroId = livroId;
+	}
+
 	public Livro getLivro() {
 		return livro;
+	}
+	
+	public void setLivro(Livro livro) {
+		this.livro = livro;
 	}
 
 	public Integer getAutorId() {
@@ -39,9 +54,6 @@ public class LivroBean implements Serializable{
 	}
 	
 	public List<Autor> getAutoresDoLivro() {
-		for (Autor a : this.livro.getAutores()) {
-			System.out.println(a.getNome());
-		}
 		return this.livro.getAutores();
 	}
 
@@ -97,5 +109,9 @@ public class LivroBean implements Serializable{
 	public void removerAutorDoLivro(Autor autor) {
 	    this.livro.removeAutor(autor);
 	}
+	
+	public void buscarLivroPorId() {
+        this.livro = new DAO<Livro>(Livro.class).buscaPorId(this.livroId);
+    }
 	
 }

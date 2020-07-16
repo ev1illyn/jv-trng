@@ -15,11 +15,20 @@ import br.com.caelum.livraria.util.RedirectView;
 public class AutorBean implements Serializable{
 
 	private Autor autor = new Autor();
+	private Integer autorId;
 
 	public Autor getAutor() {
 		return autor;
 	}
 
+	public Integer getAutorId() {
+		return autorId;
+	}
+
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
+	}
+	
 	public RedirectView gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome());
 
@@ -44,6 +53,14 @@ public class AutorBean implements Serializable{
 	
 	public void remover(Autor autor){
 		new DAO<Autor>(Autor.class).remove(autor);
+	}
+	
+	public void buscarAutorPorId() {
+		this.autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
 	}
 
 }
