@@ -52,6 +52,7 @@ public class AutorBean implements Serializable{
 	}
 	
 	public void remover(Autor autor){
+		System.out.println("Removendo autor " + autor.getNome());
 		new DAO<Autor>(Autor.class).remove(autor);
 	}
 	

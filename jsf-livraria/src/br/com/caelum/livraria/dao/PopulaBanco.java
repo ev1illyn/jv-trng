@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.Usuario;
 
 public class PopulaBanco {
 
@@ -18,13 +19,13 @@ public class PopulaBanco {
 
 		em.getTransaction().begin();
 
-		Autor assis = geraAutor("Machado de Assis");
+		Autor assis = geraAutor("Machado de Assis", "100porcentomoreninha@gmail.com");
 		em.persist(assis);
 
-		Autor amado = geraAutor("Jorge Amado");
+		Autor amado = geraAutor("Jorge Amado", "nemlinemlerei@gmail.com");
 		em.persist(amado);
 
-		Autor coelho = geraAutor("Paulo Coelho");
+		Autor coelho = geraAutor("Paulo Coelho", "100%ateu@gmail.com");
 		em.persist(coelho);
 
 		Livro casmurro = geraLivro("978-8-52-504464-8", "Dom Casmurro",
@@ -59,15 +60,19 @@ public class PopulaBanco {
 
 		em.persist(capitaes);
 		em.persist(flor);
+		
+		Usuario usuario = geraUsuario("ev@gmail.com", "123");
+		em.persist(usuario);
 
 		em.getTransaction().commit();
 		em.close();
 
 	}
 
-	private static Autor geraAutor(String nome) {
+	private static Autor geraAutor(String nome, String email) {
 		Autor autor = new Autor();
 		autor.setNome(nome);
+		autor.setEmail(email);
 		return autor;
 	}
 
@@ -80,6 +85,13 @@ public class PopulaBanco {
 		livro.setPreco(preco);
 		livro.adicionaAutor(autor);
 		return livro;
+	}
+	
+	private static Usuario geraUsuario(String email, String senha) {
+		Usuario usuario = new Usuario();
+		usuario.setEmail(email);
+		usuario.setSenha(senha);
+		return usuario;
 	}
 
 	@SuppressWarnings("unused")

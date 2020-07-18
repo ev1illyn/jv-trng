@@ -13,24 +13,26 @@
 		<ui:define name="conteudo">
 		
 			<h:form id="login">
-				<p:messages id="messages"/>
-				<p:fieldset>
-					<legend>Dados do Login</legend>
+
+				<p:messages globalOnly="true"/>
+				<p:fieldset legend="Dados do Login">
+
+					<p:messages for="email" id="messageEmail" />
+					<p:messages for="senha" id="messageSenha" />
+					
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Email:" for="email" />
 						<p:inputText id="email" value="#{loginBean.usuario.email}" required="true"
 						 requiredMessage="Email obrigatório">
 							<f:passThroughAttribute name="type" value="email"/>
-							<f:ajax event="blur" render="messages"/>
+							<f:ajax event="blur" render="messageEmail"/>
 						</p:inputText>
-						<p:messages for="email" id="messageEmail"/>
 						
 						<p:outputLabel value="Senha:" for="senha"></p:outputLabel>
 						<p:password id="senha" value="#{loginBean.usuario.senha}" feedback="true" required="true"
 	    	             promptLabel="Digite a sua senha" weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte" >
 							<f:passThroughAttribute name="type" value="password" />
 						</p:password>
-						<p:messages for="senha" id="messageSenha"/>
 						
 						<p:commandButton value="Logar" action="#{loginBean.logar}" update="@form" process="@form">
 						</p:commandButton>

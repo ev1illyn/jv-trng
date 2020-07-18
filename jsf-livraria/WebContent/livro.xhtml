@@ -52,6 +52,7 @@
 				<legend>Dados do autor:</legend>
 				
 				<h:outputLabel for="autor" value="Selecione o Autor:"></h:outputLabel>
+				
 				<h:selectOneMenu value="#{livroBean.autorId}" id="autor">
 					<f:selectItems value="#{livroBean.autores}" var="autor"
 						itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
