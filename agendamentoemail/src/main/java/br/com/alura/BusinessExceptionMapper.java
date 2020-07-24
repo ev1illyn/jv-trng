@@ -1,5 +1,7 @@
 package br.com.alura;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.core.Response;
@@ -14,10 +16,19 @@ public class BusinessExceptionMapper implements ExceptionMapper<BusinessExceptio
 
 	@Override
 	public Response toResponse(BusinessException exception) {
+	 List<String> mensagens = new ArrayList<>();
+	 mensagens.add(exception.getMensagem());
+	 return Response
+               .status(Response.Status.BAD_REQUEST)
+               .entity( MensagemErroDto.build(mensagens))
+               .build();
+	}
+	/*@Override
+	public Response toResponse(BusinessException exception) {
 		return Response
 				.status(Response.Status.BAD_REQUEST)
 				.entity( MensagemErroDto.build(exception.getMensagens()))
 				.build();
-	}
+	}*/
 
 }

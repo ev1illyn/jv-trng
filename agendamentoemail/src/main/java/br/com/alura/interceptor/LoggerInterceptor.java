@@ -3,13 +3,11 @@ package br.com.alura.interceptor;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
-import javax.ejb.EJBException;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.validation.ConstraintViolationException;
 
-import br.com.alura.resources.AgendamentoEmailResource;
 
 @Interceptor
 @Priority(1)
