@@ -100,15 +100,9 @@ public class LivroBean implements Serializable{
 		Autor autor = autorDao.buscaPorId(this.autorId);
 		this.livro.adicionaAutor(autor);
 	}
-	/*
-	 * public RedirectView formAutor() { return new
-	 * RedirectView("autor?faces-redirect=true"); }
-	 */
 	
-
-	public String formAutor() {
-		System.out.println("Chamanda do formulário do Autor.");
-		return "autor?faces-redirect=true";
+	public RedirectView formAutor() { return new
+		RedirectView("autor?faces-redirect=true");
 	}
 	
 	public void comecaComDigitoUm(FacesContext fc, UIComponent component, Object value) throws ValidatorException {
