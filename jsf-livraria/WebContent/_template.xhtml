@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+<h:body>
+	<div id="cabecalho">
+
+		<h:graphicImage library="img" name="logo.png" />
+
+		<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" />
+
+		<h:form rendered="#{usuarioLogado != null}">
+					
+			<p:menubar>
+
+				<p:submenu label="Cadastros" icon="ui-icon-document">
+					<p:menuitem value="Livros" action="livro?faces-redirect=true"
+						icon="fa fa-fw fa-list-alt" />
+					<p:separator />
+					<p:menuitem value="Autor" action="autor?faces-redirect=true"
+						icon="fa fa-fw fa-user" />
+					<p:menuitem value="Vendas" action="vendas?faces-redirect=true"
+						icon="fa fa-fw fa-bar-chart" />
+				</p:submenu>
+
+				<p:submenu label="Outros">
+					<p:menuitem value="Logout" action="#{loginBean.deslogar}"
+						icon="fa fa-fw fa-sign-out" />
+				</p:submenu>
+				<p:submenu label="Primefaces">
+					<p:menuitem value="ShowCase" url="http://primefaces.org/showcase"
+						icon="fa fa-fw fa-sign-out" />
+				</p:submenu>
+
+			</p:menubar>
+
+		</h:form>
+
+		<h6>
+			<h:outputText value="#{sessionScope['usuarioLogado'].email}" />
+		</h6>
+
+		<h:form rendered="#{usuarioLogado != null}">
+
+			<h:commandLink value="Sair" action="#{loginBean.deslogar}" />
+
+		</h:form>
+
+		<h1>
+			<ui:insert name="titulo"></ui:insert>
+		</h1>
+
+	</div>
+
+	<div id="conteudo">
+		<ui:insert name="conteudo"></ui:insert>
+	</div>
+
+	<div id="rodape">
+		<h5>
+			<ui:insert name="rodape"></ui:insert>
+			|| Copyright 2020
+		</h5>
+	</div>
+
+</h:body>
+
+</html>
