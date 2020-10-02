@@ -18,6 +18,7 @@ public class Livro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
+	@Lob
 	private String descricao;
 	private BigDecimal preco;
 	private Integer numeroPaginas;
