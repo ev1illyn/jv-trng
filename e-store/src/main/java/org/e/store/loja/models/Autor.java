@@ -17,6 +17,10 @@ public class Autor {
 	public Autor() {
 	}
 	
+	public Autor(String nome) {
+		this.nome = nome;
+	}
+	
 	public Autor(Integer id) {
 		this.id = id;
 	}
