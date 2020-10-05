@@ -37,10 +37,6 @@ public class AdminLivrosBean {
 	@Transactional 
 	public String salvar() {
 		
-		for (Integer autorId : autoresId) {
-			livro.getAutores().add(new Autor(autorId));
-		}
-		
 		dao.salvar(livro);
 		
 		 // Flash Scope - guarda o valor na sessão e dura apenas de um request pra outro
@@ -52,14 +48,6 @@ public class AdminLivrosBean {
 
 	public List<Autor> getAutores() {
 		return autorDao.listar();
-	}
-
-	public List<Integer> getAutoresId() {
-		return autoresId;
-	}
-
-	public void setAutoresId(List<Integer> autoresId) {
-		this.autoresId = autoresId;
 	}
 
 	public Livro getLivro() {
