@@ -43,6 +43,7 @@ public class Livro {
 	@Size(min=1)
 	@NotNull
 	private List<Autor> autores = new ArrayList<>();
+	private String capaPath;
 
 	public Integer getId() {
 		return id;
@@ -98,6 +99,14 @@ public class Livro {
 
 	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
+	}
+
+	public String getCapaPath() {
+		return capaPath;
+	}
+
+	public void setCapaPath(String capaPath) {
+		this.capaPath = capaPath;
 	}
 
 	@Override
