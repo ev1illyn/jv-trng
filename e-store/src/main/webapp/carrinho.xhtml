@@ -273,7 +273,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ui:repeat var="carrinhoItem" value="#{carrinhoCompras.itens}" varStatus="loop">
+			<ui:repeat var="carrinhoItem" value="#{carrinhoComprasBean.itens}" varStatus="loop">
 				<tr>
 					<td class="formularioDoCarrinho-item">
 						<a href="#{request.contextPath}/detalhe-livro.xhtml?id=#{carrinhoItem.livro.id}">
@@ -286,9 +286,9 @@
 					<td class="formularioDoCarrinho-item formularioDoCarrinho-item-preco">#{carrinhoItem.livro.preco}</td>
 					<td class="formularioDoCarrinho-item">
 						<input class="formularioDoCarrinho-item-quantidade"
-							   type="number"
-							   min="0"
-							   jsf:value="#{carrinhoComprasBean.itens[loop.index].quantidade}" />
+	                       type="number"
+	                       min="0"
+	                       jsf:value="#{carrinhoComprasBean.itens[loop.index].quantidade}" />
 					</td>
 					<td class="formularioDoCarrinho-item formularioDoCarrinho-item-precoTotal" title="Preço unitário: #{carrinhoItem.livro.preco}">R$ #{carrinhoCompras.getTotal(carrinhoItem)}</td>
 					<td class="formularioDoCarrinho-item">
@@ -306,7 +306,10 @@
 					<button class="formularioDoCarrinho-finalizar-botao" type="submit" name="checkout">Finalizar<span class="formularioDoCarrinho-finalizar-botao-texto" role="presentation"> compra</span></button>
 				</td>
 				<td class="formularioDoCarrinho-rodape-item">
-					<button class="formularioDoCarrinho-atualizar" type="submit">Atualizar</button>
+					<button class="formularioDoCarrinho-atualizar" jsf:id="btnAtualizar" type="submit">Atualizar
+						<img class="formularioDoCarrinho-atualizar"  src="#{request.contextPath}/resources/imagens/refresh.png" alt="Atualizar"
+						 title="Atualizar" />						
+					</button>
 				</td>
 				<td class="formularioDoCarrinho-rodape-item">
 					R$ #{carrinhoCompras.getTotal()}
