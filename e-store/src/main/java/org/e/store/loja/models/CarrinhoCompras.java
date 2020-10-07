@@ -41,4 +41,9 @@ public class CarrinhoCompras implements Serializable{
 	            new BigDecimal(item.getQuantidade()));
 	}
 	
+	// stream() do Java 8
+	public Integer getQuantidadeTotal() {
+		return itens.stream().mapToInt(item -> item.getQuantidade()).sum();
+	}
+	
 }
