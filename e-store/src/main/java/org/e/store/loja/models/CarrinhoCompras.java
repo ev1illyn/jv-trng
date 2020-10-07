@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.e.store.loja.daos.CompraDao;
+
 
 @SessionScoped
 @Named
@@ -17,6 +21,9 @@ public class CarrinhoCompras implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Set<CarrinhoItem> itens = new HashSet<>();
+
+	@Inject
+	private CompraDao compraDao;
 	
 	public void add(CarrinhoItem item) {
 		itens.add(item);
@@ -44,6 +51,23 @@ public class CarrinhoCompras implements Serializable{
 	// stream() do Java 8
 	public Integer getQuantidadeTotal() {
 		return itens.stream().mapToInt(item -> item.getQuantidade()).sum();
+	}
+	
+	public void finalizar(Usuario usuario) {
+		Compra compra = new Compra();
+		compra.setUsuario(usuario);
+		compra.setItens(toJson());
+		compraDao.salvar(compra);
+	}
+	
+	private String toJson() {
+		/*
+		 * JsonArrayBuilder builder = Json.creatyArrayBuilder(); for (CarrinhoItem item
+		 * : itens) { builder.add(Json.createObjectBuilder() .add("titulo",
+		 * item.getLivro().getTitulo()) .add("preco", item.getLivro().getPreco())
+		 * .add("quantidade", item.getQuantidade()) .add("total", getTotal(item)) ); }
+		 */
+		return "{}";//builder.build().toString();
 	}
 	
 }

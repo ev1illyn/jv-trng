@@ -15,12 +15,10 @@ public class HomeBean {
 	@Inject
 	private LivroDao livroDao;
 	
-	@Transactional
 	public List<Livro> ultimosLancamentos() {
 		return livroDao.ultimosLancamentos();
 	}
 	
-	@Transactional
 	public List<Livro> demaisLivros() {
 		return livroDao.demaisLivros();
 		

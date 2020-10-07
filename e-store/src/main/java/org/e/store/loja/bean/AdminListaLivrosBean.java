@@ -18,7 +18,6 @@ public class AdminListaLivrosBean {
 	@Inject
 	private LivroDao dao;
 	
-	@Transactional 
 	public List<Livro> getLivros() {
 		this.livros = dao.listar();
 		return livros;		
