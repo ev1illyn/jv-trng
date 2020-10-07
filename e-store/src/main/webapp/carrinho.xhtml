@@ -273,7 +273,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ui:repeat var="carrinhoItem" value="#{carrinhoCompras.itens}">
+			<ui:repeat var="carrinhoItem" value="#{carrinhoCompras.itens}" varStatus="loop">
 				<tr>
 					<td class="formularioDoCarrinho-item">
 						<a href="#{request.contextPath}/detalhe-livro.xhtml?id=#{carrinhoItem.livro.id}">
@@ -288,7 +288,7 @@
 						<input class="formularioDoCarrinho-item-quantidade"
 							   type="number"
 							   min="0"
-							   value="#{carrinhoItem.quantidade}" />
+							   jsf:value="#{carrinhoComprasBean.itens[loop.index].quantidade}" />
 					</td>
 					<td class="formularioDoCarrinho-item formularioDoCarrinho-item-precoTotal" title="Preço unitário: #{carrinhoItem.livro.preco}">R$ #{carrinhoCompras.getTotal(carrinhoItem)}</td>
 					<td class="formularioDoCarrinho-item">
