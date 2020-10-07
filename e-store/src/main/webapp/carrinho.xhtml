@@ -260,7 +260,7 @@
 		<section class="infoSection container">
 	<h2 class="infoSection-titulo">Seu carrinho</h2>
 	
-	<form class="formularioDoCarrinho" action="https://www.casadocodigo.com.br/cart" method="post">
+	<form class="formularioDoCarrinho" jsf:id="formCarrinho" method="post">
 		<table class="formularioDoCarrinho-tabela">
 		<thead class="formularioDoCarrinho-cabecalho">
 			<tr>
@@ -306,7 +306,7 @@
 					<button class="formularioDoCarrinho-finalizar-botao" type="submit" name="checkout">Finalizar<span class="formularioDoCarrinho-finalizar-botao-texto" role="presentation"> compra</span></button>
 				</td>
 				<td class="formularioDoCarrinho-rodape-item">
-					<button class="formularioDoCarrinho-atualizar" type="submit" name="update">Atualizar</button>
+					<button class="formularioDoCarrinho-atualizar" type="submit">Atualizar</button>
 				</td>
 				<td class="formularioDoCarrinho-rodape-item">
 					R$ #{carrinhoCompras.getTotal()}
