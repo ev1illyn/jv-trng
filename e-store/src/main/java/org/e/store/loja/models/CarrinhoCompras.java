@@ -61,13 +61,16 @@ public class CarrinhoCompras implements Serializable{
 	}
 	
 	private String toJson() {
-		/*
-		 * JsonArrayBuilder builder = Json.creatyArrayBuilder(); for (CarrinhoItem item
-		 * : itens) { builder.add(Json.createObjectBuilder() .add("titulo",
-		 * item.getLivro().getTitulo()) .add("preco", item.getLivro().getPreco())
-		 * .add("quantidade", item.getQuantidade()) .add("total", getTotal(item)) ); }
-		 */
-		return "{}";//builder.build().toString();
+		JsonArrayBuilder builder = Json.creatyArrayBuilder();
+		for (CarrinhoItem item : itens) {
+			builder.add(Json.createObjectBuilder()
+				.add("titulo", item.getLivro().getTitulo())
+				.add("preco", item.getLivro().getPreco())
+				.add("quantidade", item.getQuantidade())
+				.add("total", getTotal(item)) ); 
+		}
+		 
+		return builder.build().toString();
 	}
 	
 }
