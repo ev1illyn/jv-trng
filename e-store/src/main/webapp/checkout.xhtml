@@ -263,15 +263,15 @@
 <form method="post" jsf:id="formCheckout">
 	<div class="form-group">
 		<label>Nome</label>
-		<input class="form-control" type="text" autofocus="autofocus" placeholder="Nome Completo" jsf:value="checkoutBean.usuario.nome"/>
+		<input class="form-control" type="text" autofocus="autofocus" placeholder="Nome Completo" jsf:value="#{checkoutBean.usuario.nome}"/>
 	</div>
 	<div class="form-group">
 		<label>E-mail</label>
-		<input class="form-control" type="email" placeholder="E-mail" jsf:value="checkoutBean.usuario.email" />
+		<input class="form-control" type="email" placeholder="E-mail" jsf:value="#{checkoutBean.usuario.email}" />
 	</div>
 	<div class="form-group">
 		<label>Senha</label>
-		<input class="form-control" type="password" placeholder="Senha" jsf:value="checkoutBean.usuario.senha" />
+		<input class="form-control" type="password" placeholder="Senha" jsf:value="#{checkoutBean.usuario.senha}" />
 	</div>
 	<button class="btn btn-primary" type="submit" jsf:action="#{checkoutBean.finalizar}">Finalizar Compra</button>
 </form>
