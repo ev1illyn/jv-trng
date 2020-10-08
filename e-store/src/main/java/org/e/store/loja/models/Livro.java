@@ -27,22 +27,29 @@ public class Livro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@NotBlank
 	private String titulo;
+	
 	@Lob
 	@Length(min=10)
 	@NotBlank
 	private String descricao;
+	
 	@DecimalMin("20")
 	private BigDecimal preco;
+	
 	@Min(50)
 	private Integer numeroPaginas;
+	
 	@Temporal(TemporalType.DATE)
 	private Calendar dataPublicacao;
+	
 	@ManyToMany
 	@Size(min=1)
 	@NotNull
 	private List<Autor> autores = new ArrayList<>();
+	
 	private String capaPath;
 
 	public Integer getId() {
