@@ -14,7 +14,7 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 
 import org.e.store.loja.daos.CompraDao;
-
+import org.e.store.loja.service.PagamentoGateway;
 
 @SessionScoped
 @Named
@@ -26,6 +26,9 @@ public class CarrinhoCompras implements Serializable{
 
 	@Inject
 	private CompraDao compraDao;
+	
+	@Inject
+	private PagamentoGateway pagamentoGateway;
 	
 	public void add(CarrinhoItem item) {
 		itens.add(item);
@@ -60,6 +63,10 @@ public class CarrinhoCompras implements Serializable{
 		compra.setUsuario(usuario);
 		compra.setItens(toJson());
 		compraDao.salvar(compra);
+		
+		String resultado = pagamentoGateway.pagar(getTotal());
+		System.out.println(resultado);
+		
 	}
 	
 	private String toJson() {

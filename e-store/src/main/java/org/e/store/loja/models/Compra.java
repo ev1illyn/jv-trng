@@ -1,11 +1,11 @@
 package org.e.store.loja.models;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -18,7 +18,6 @@ public class Compra {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Usuario usuario;
 	
-	@Lob
 	private String itens;
 
 	public Integer getId() {
