@@ -60,10 +60,8 @@ public class CarrinhoCompras implements Serializable{
 	
 	public void finalizar(Compra compra) {
 		compra.setItens(toJson());
+		compra.setTotal(getTotal());
 		compraDao.salvar(compra);
-		
-		String resultado = pagamentoGateway.pagar(getTotal());
-		System.out.println(resultado);
 		
 	}
 	

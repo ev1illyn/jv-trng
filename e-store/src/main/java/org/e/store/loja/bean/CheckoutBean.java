@@ -1,6 +1,7 @@
 package org.e.store.loja.bean;
 
 import javax.enterprise.inject.Model;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -12,9 +13,13 @@ import org.e.store.loja.models.Usuario;
 @Model
 public class CheckoutBean {
 
+	private Usuario usuario = new Usuario();
 	
 	@Inject
 	private CarrinhoCompras carrinho;
+	
+	@Inject
+	private FacesContext facesContext;
 	
 	/*
 	 * finaliza a compra e faz uma requisição a aplicação como se fosse um serviço
@@ -29,8 +34,16 @@ public class CheckoutBean {
 		String contextName = facesContext.getExternalContext().getRequestContextPath();
 		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-		response.setHeader("Location", contextName + "/" + "service/pagamento?uuid=" + compra.getUuid());
+		response.setHeader("Location", contextName + "/" + "services/pagamento?uuid=" + compra.getUuid());
 		
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }
