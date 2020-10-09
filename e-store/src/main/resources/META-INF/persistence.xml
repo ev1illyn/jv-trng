@@ -10,8 +10,10 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!-- java transaction api JNDI-->
         <jta-data-source>java:jboss/datasources/e-storeDS</jta-data-source>
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> <!-- cache das consultas jpa -->
 
-        <properties>            
+        <properties>
+        	<property name="hibernate.cache.use_query_cache" value="true"/> <!-- cache das consultas hibernate -->     
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/> <!-- O dialeto permite que o provider consiga enviar as queries corretamente ao banco -->
             <property name="hibernate.show_sql" value="true"/> <!-- formatação: queries no console -->
             <property name="hibernate.format_sql" value="true"/>	<!-- mostra SQL formatado -->	
