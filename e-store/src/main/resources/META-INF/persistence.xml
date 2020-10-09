@@ -8,12 +8,13 @@
     <persistence-unit name="e-store">
     	<description>Dev persistence unit</description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <!-- java transaction api JNDI-->
-        <jta-data-source>java:jboss/datasources/e-storeDS</jta-data-source>
+        <jta-data-source>java:jboss/datasources/e-storeDS</jta-data-source> <!-- java transaction api JNDI-->
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> <!-- cache das consultas jpa -->
 
         <properties>
-        	<property name="hibernate.cache.use_query_cache" value="true"/> <!-- cache das consultas hibernate -->     
+        	<property name="hibernate.cache.use_query_cache" value="true"/> <!-- cache das consultas hibernate --> 
+        	<property name="hibernate.cache.infinispan.entity.expiration.lifespan" value="900000"/> <!-- tempo de vida do cache antes de uma nova consulta no banco -->
+        	<property name="hibernate.cache.infinispan.entity.expiration.max_idle" value="300000"/> <!-- tempo máximo de inatividade -->  
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/> <!-- O dialeto permite que o provider consiga enviar as queries corretamente ao banco -->
             <property name="hibernate.show_sql" value="true"/> <!-- formatação: queries no console -->
             <property name="hibernate.format_sql" value="true"/>	<!-- mostra SQL formatado -->	
