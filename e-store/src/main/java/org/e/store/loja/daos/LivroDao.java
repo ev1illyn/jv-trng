@@ -3,11 +3,13 @@ package org.e.store.loja.daos;
 import java.util.List;
 
 import javax.ejb.Stateful;
+import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.e.store.loja.models.Livro;
+import org.hibernate.SessionFactory;
 import org.hibernate.jpa.QueryHints;
 
 @Stateful
@@ -32,6 +34,7 @@ public class LivroDao {
 		return manager.createQuery(jpql, Livro.class)
 				.setMaxResults(5)
 				.setHint(QueryHints.HINT_CACHEABLE, true)
+				.setHint(QueryHints.HINT_CACHE_REGION, "home")
 				.getResultList();
 	}
 	
@@ -40,11 +43,17 @@ public class LivroDao {
 		return manager.createQuery(jpql, Livro.class)
 				.setFirstResult(5)
 				.setHint(QueryHints.HINT_CACHEABLE, true)
+				.setHint(QueryHints.HINT_CACHE_REGION, "home")
 				.getResultList();
 	}
 	
 	public Livro buscarPorId(Integer id) {
 		return manager.find(Livro.class, id);
+	}
+	
+	public void limpaCache() {		
+		SessionFactory factory = manager.getEntityManagerFactory().unwrap(SessionFactory.class);
+		factory.getCache().evictQueryRegion("home");
 	}
 	
 }
