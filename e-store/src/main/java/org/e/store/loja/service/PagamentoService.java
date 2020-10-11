@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.e.store.loja.daos.CompraDao;
+import org.e.store.loja.infra.MailSender;
 import org.e.store.loja.models.Compra;
 
 @Path("/pagamento")
@@ -32,6 +33,9 @@ public class PagamentoService {
 	private PagamentoGateway pagamentoGateway;
 	
 	private static ExecutorService executor = Executors.newFixedThreadPool(50);
+	
+	@Inject
+	private MailSender mailSender;
 	
 	@POST
 	public void pagar(@Suspended final AsyncResponse ar, @QueryParam("uuid") String uuid) {
@@ -51,6 +55,10 @@ public class PagamentoService {
 						.build();
 				
 				Response response = Response.seeOther(responseURI).build();
+				
+				String messageBody = "Sua compra foi realizada com sucesso!";
+				mailSender.send("compras@e-store.com.br", compra.getUsuario().getEmail(),
+					 "Nova compra na CDC", messageBody);
 				
 				ar.resume(response);
 				
