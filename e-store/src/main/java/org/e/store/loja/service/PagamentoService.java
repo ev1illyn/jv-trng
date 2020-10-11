@@ -56,9 +56,9 @@ public class PagamentoService {
 				
 				Response response = Response.seeOther(responseURI).build();
 				
-				String messageBody = "Sua compra foi realizada com sucesso!";
+				String messageBody = "Sua compra foi realizada com sucesso, com número de pedido: " + compra.getUuid();
 				mailSender.send("compras@e-store.com.br", compra.getUsuario().getEmail(),
-					 "Nova compra na CDC", messageBody);
+					 "Sua compra na E-Store", messageBody);
 				
 				ar.resume(response);
 				
