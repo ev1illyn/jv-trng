@@ -4,7 +4,11 @@ import java.net.URI;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.jms.Destination;
+import javax.jms.JMSContext;
+import javax.jms.JMSProducer;
 import javax.servlet.ServletContext;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -35,13 +39,19 @@ public class PagamentoService {
 	private static ExecutorService executor = Executors.newFixedThreadPool(50);
 	
 	@Inject
-	private MailSender mailSender;
+	private JMSContext jmsContext; // especificação JAVA EE, para enviar e-mail assíncronos. Se comunica com o servidor e cria mensagem
+
+	@Resource(name="java:/jms/topics/CarrinhoComprasTopico")
+	private Destination destination;
 	
+	/* O AsyncResponse é assíncrono no servidos apenas para novos usuários*/
 	@POST
 	public void pagar(@Suspended final AsyncResponse ar, @QueryParam("uuid") String uuid) {
 		Compra compra = compraDao.buscaPorUuid(uuid);
 		
 		String contextPath = context.getContextPath();
+		
+		JMSProducer producer = jmsContext.createProducer();
 		
 		executor.submit(() -> {
 			try {
@@ -56,9 +66,7 @@ public class PagamentoService {
 				
 				Response response = Response.seeOther(responseURI).build();
 				
-				String messageBody = "Sua compra foi realizada com sucesso, com número de pedido: " + compra.getUuid();
-				mailSender.send("compras@e-store.com.br", compra.getUsuario().getEmail(),
-					 "Sua compra na E-Store", messageBody);
+				producer.send(destination, compra.getUuid()); // envio da mensagem para EnviaEmailCompra
 				
 				ar.resume(response);
 				

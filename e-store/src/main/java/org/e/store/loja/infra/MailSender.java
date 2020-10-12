@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 @ApplicationScoped
 public class MailSender {
 	
-	@Resource(mappedName = "java:/jboss/mail/gmail") // recurso captado pelo JNDI, padrão JAVA EE
+	@Resource(mappedName = "java:/jboss/mail/gmail") // injetando recurso mapeado via JNDI
 	private Session session;
 	
 	public void send(String from, String to, String subject, String body) {
