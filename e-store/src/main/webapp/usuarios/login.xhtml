@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="style-admin.css" />
+</h:head>
+
+<h:body>
+
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+	<a class="navbar-brand" href="#">E-store</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	</div>
+	</nav>
+
+	<div class="container">
+
+		<h1>Login</h1>
+
+		<form action="${request.getContextPath()}/j_security_check" >
+			<div class="form-group">
+				<label for="exampleInputEmail1">E-mail:</label>
+				<input name="j_username" type="email" class="form-control" id="exampleInputEmail1"
+					aria-describedby="emailHelp" /> <small id="emailHelp"
+					class="form-text text-muted">Seu e-mail não será
+					compartilhado com ninguém.</small>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Senha:</label>
+				<input name="j_password" type="password" class="form-control" id="exampleInputPassword1" />
+			</div>
+			<button type="submit" class="btn btn-primary">Logar</button>
+		</form>
+
+	</div>
+</h:body>
+
+</html>
