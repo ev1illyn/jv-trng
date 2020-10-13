@@ -21,7 +21,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.e.store.loja.daos.CompraDao;
-import org.e.store.loja.infra.MailSender;
 import org.e.store.loja.models.Compra;
 
 @Path("/pagamento")
@@ -58,38 +57,21 @@ public class PagamentoService {
 				
 				String resposta = pagamentoGateway.pagar(compra.getTotal());
 				System.out.println(resposta);
+
+				producer.send(destination, compra.getUuid()); // envio da mensagem para EnviaEmailCompra
 				
 				URI responseURI = UriBuilder
 						.fromPath("http://localhost:8080" + contextPath + "/index.xhtml")
-						.queryParam("msg", "Compra realizada com sucesso")
+						.queryParam("msg", "Compra realizada com sucesso!")
 						.build();
 				
 				Response response = Response.seeOther(responseURI).build();
 				
-				producer.send(destination, compra.getUuid()); // envio da mensagem para EnviaEmailCompra
-				
 				ar.resume(response);
-				
 			} catch (Exception e) {
 				ar.resume(new WebApplicationException(e));
 			}
 		});
 		
-	}
-
-	public CompraDao getCompraDao() {
-		return compraDao;
-	}
-
-	public void setCompraDao(CompraDao compraDao) {
-		this.compraDao = compraDao;
-	}
-
-	public PagamentoGateway getPagamentoGateway() {
-		return pagamentoGateway;
-	}
-
-	public void setPagamentoGateway(PagamentoGateway pagamentoGateway) {
-		this.pagamentoGateway = pagamentoGateway;
 	}
 }
