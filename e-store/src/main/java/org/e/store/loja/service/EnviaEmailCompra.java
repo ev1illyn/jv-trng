@@ -35,7 +35,7 @@ public class EnviaEmailCompra implements MessageListener {
 
 			Compra compra = compraDao.buscaPorUuid(textMessage.getText());
 
-			String messageBody = "Sua compra foi realizada com sucesso, com número de pedido: " + compra.getUuid();
+			String messageBody = compra.getUsuario().getNome() + ", sua compra foi realizada com sucesso, com número de pedido: " + compra.getUuid();
 
 			mailSender.send("compras@e-store.com.br", compra.getUsuario().getEmail(), "Sua compra na E-Store",
 					messageBody);
