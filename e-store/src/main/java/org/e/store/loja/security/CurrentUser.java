@@ -34,4 +34,10 @@ public class CurrentUser {
 		return systemUser;
 	}
 	
+	public String logout() {
+	    request.getSession().invalidate();        
+
+	    return "e-store/livros/lista.xhtml?faces-redirect=true";
+	}
+	
 }
