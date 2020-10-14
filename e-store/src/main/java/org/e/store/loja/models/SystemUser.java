@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class SystemUser {
@@ -40,6 +41,16 @@ public class SystemUser {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public SystemUser(Integer id, @Email String email, String senha, List<SystemRole> roles) {
+		this.id = id;
+		this.email = email;
+		this.senha = senha;
+		this.roles = roles;
+	}
+
+	public SystemUser() {
 	}
 
 	public String getSenha() {

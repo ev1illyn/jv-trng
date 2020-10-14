@@ -36,6 +36,8 @@
 		
     		<h1>Lista de Livros</h1>
 		
+			<div>Bem vindo(a), #{currentUser.get().email}</div>
+		
 			<h:messages/>
 		
 			<h:dataTable var="livro" value="#{adminListaLivrosBean.livros}" class="table table-striped table-hover">

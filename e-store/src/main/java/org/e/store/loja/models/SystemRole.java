@@ -13,6 +13,9 @@ public class SystemRole {
 		this.name = name;
 	}
 
+	public SystemRole() {
+	}
+
 	public String getName() {
 		return name;
 	}
