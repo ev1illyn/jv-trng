@@ -15,6 +15,7 @@
     <param-value>900</param-value>
   </context-param>
 
+	<!-- proteção de urls da aplicação -->
 	<security-constraint>
 		<display-name>Administration</display-name>
 		<web-resource-collection>
@@ -25,10 +26,11 @@
 			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name></role-name>
+			<role-name>ADMIN</role-name>
 		</auth-constraint>
 	</security-constraint>
 	
+	<!-- autenticação do usuário via formulário -->
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
