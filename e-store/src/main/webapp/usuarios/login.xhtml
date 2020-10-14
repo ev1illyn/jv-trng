@@ -31,19 +31,21 @@
 
 		<h1>Login</h1>
 
-		<form action="${request.getContextPath()}/j_security_check" >
+		<form method="post" action="${request.getContextPath()}/j_security_check">
+		
 			<div class="form-group">
-				<label for="exampleInputEmail1">E-mail:</label>
-				<input name="j_username" type="email" class="form-control" id="exampleInputEmail1"
-					aria-describedby="emailHelp" /> <small id="emailHelp"
-					class="form-text text-muted">Seu e-mail não será
-					compartilhado com ninguém.</small>
+				<label for="email">E-mail:</label>
+				<input name="j_username" type="email" class="form-control" aria-describedby="emailHelp" id="email"/>
+					<small id="emailHelp" class="form-text text-muted">Seu e-mail não será compartilhado com ninguém.</small>
 			</div>
+			
 			<div class="form-group">
-				<label for="exampleInputPassword1">Senha:</label>
-				<input name="j_password" type="password" class="form-control" id="exampleInputPassword1" />
+				<label for="senha">Senha:</label>
+				<input name="j_password" type="password" class="form-control" id="senha"/>
 			</div>
+			
 			<button type="submit" class="btn btn-primary">Logar</button>
+			
 		</form>
 
 	</div>
