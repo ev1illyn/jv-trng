@@ -22,10 +22,10 @@ public class CurrentUser {
 	private SystemUser systemUser;
 	
 	@PostConstruct
-	public void loadSystemUser() {
+	private void loadSystemUser() {
 		Principal principal = request.getUserPrincipal();
 		if (principal != null) {
-			String email = request.getUserPrincipal().getName();
+			String email = principal.getName();
 			systemUser = securityDao.findByEmail(email);
 		}
 	}
@@ -39,5 +39,9 @@ public class CurrentUser {
 
 	    return "e-store/livros/lista.xhtml?faces-redirect=true";
 	}
+	
+    public boolean hasRole(String name) {
+        return request.isUserInRole(name);
+    }
 	
 }
