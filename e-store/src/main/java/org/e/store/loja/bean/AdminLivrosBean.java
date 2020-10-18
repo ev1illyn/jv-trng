@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 
@@ -18,6 +19,7 @@ import org.e.store.loja.daos.LivroDao;
 import org.e.store.loja.infra.FileSaver;
 import org.e.store.loja.models.Autor;
 import org.e.store.loja.models.Livro;
+import org.e.store.loja.security.CurrentUser;
 
 @Model
 public class AdminLivrosBean {
@@ -73,5 +75,4 @@ public class AdminLivrosBean {
 	public void setCapaLivro(Part capaLivro) {
 		this.capaLivro = capaLivro;
 	}
-
 }

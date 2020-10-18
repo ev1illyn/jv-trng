@@ -15,12 +15,12 @@ public class CurrentUser {
 
 	@Inject
 	private HttpServletRequest request;
-	
+
 	@Inject
 	private SecurityDao securityDao;
-	
+
 	private SystemUser systemUser;
-	
+
 	@PostConstruct
 	private void loadSystemUser() {
 		Principal principal = request.getUserPrincipal();
@@ -29,19 +29,13 @@ public class CurrentUser {
 			systemUser = securityDao.findByEmail(email);
 		}
 	}
-	
+
 	public SystemUser get() {
 		return systemUser;
 	}
-	
-	public String logout() {
-	    request.getSession().invalidate();        
 
-	    return "e-store/livros/lista.xhtml?faces-redirect=true";
+	public boolean hasRole(String name) {
+		return request.isUserInRole(name);
 	}
-	
-    public boolean hasRole(String name) {
-        return request.isUserInRole(name);
-    }
-	
+
 }
