@@ -37,5 +37,11 @@ public class CurrentUser {
 	public boolean hasRole(String name) {
 		return request.isUserInRole(name);
 	}
+	
+	public String logout() {
+		request.getSession().invalidate();
+		
+		return  "/livros/lista.xhtml?faces-redirect=true";
+	}
 
 }
