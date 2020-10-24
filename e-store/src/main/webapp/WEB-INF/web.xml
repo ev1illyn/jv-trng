@@ -22,6 +22,7 @@
 			<web-resource-name>administration</web-resource-name>
 			<description>URLs que levam para a administração da loja</description>
 			<url-pattern>/livros/*</url-pattern>
+			<url-pattern>/admin/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>

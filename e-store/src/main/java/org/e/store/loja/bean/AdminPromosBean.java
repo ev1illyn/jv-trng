@@ -8,16 +8,16 @@ import org.e.store.loja.websockets.PromosEndpoint;
 
 @Model
 public class AdminPromosBean {
-	
+
 	private Promo promo = new Promo();
-	
+
 	@Inject
-	private PromosEndpoint promosEndpoint;
+	private PromosEndpoint promos;
 	
 	public void enviar() {
-		promosEndpoint.send(promo);
+		promos.send(promo);		
 	}
-
+	
 	public Promo getPromo() {
 		return promo;
 	}

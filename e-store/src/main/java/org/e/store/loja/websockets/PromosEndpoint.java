@@ -15,25 +15,25 @@ public class PromosEndpoint {
 
 	@Inject
 	private UsuariosSession usuarios;
+
+	//websockets - mantêm uma conexão aberta com o cliente e assim o servidor envia info sem necessidade do usuário fazer requisições
+	@OnOpen
+	public void onMessage(Session session) {
+		usuarios.add(session);
+	}
 	
 	public void send(Promo promo) {
-		
 		List<Session> sessions = usuarios.getUsuarios();
 		
 		for (Session session : sessions) {
 			if(session.isOpen()) {
-	            try {
-	                session.getBasicRemote().sendText(promo.toJson());
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }			
+				try {
+					session.getBasicRemote().sendText(promo.toJson());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
-	//websockets - mantêm uma conexão aberta com o cliente e assim o servidor envia info sem necessidade do usuário fazer requisições
-    @OnOpen
-    public void onMessage(Session session) {
-        usuarios.add(session);
-    }
 }

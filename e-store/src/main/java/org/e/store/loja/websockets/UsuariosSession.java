@@ -12,6 +12,7 @@ public class UsuariosSession {
 	private List<Session> sessions = new ArrayList<>();
 	
 	public void add(Session session) {
+		System.out.println(session.getQueryString());
 		sessions.add(session);
 	}
 	
