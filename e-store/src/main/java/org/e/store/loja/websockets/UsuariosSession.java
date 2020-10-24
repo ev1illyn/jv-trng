@@ -12,11 +12,14 @@ public class UsuariosSession {
 	private List<Session> sessions = new ArrayList<>();
 	
 	public void add(Session session) {
-		System.out.println(session.getQueryString());
 		sessions.add(session);
 	}
 	
 	public List<Session> getUsuarios() {
 		return sessions;
+	}
+
+	public void remove(Session session) {
+		sessions.remove(session);
 	}
 }

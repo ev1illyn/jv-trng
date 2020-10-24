@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.websocket.CloseReason;
+import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
@@ -34,6 +36,13 @@ public class PromosEndpoint {
 				}
 			}
 		}
+	}
+
+	// método chamado quando a sessão do websocket está sendo fechada
+	@OnClose
+	public void onClose(Session session, CloseReason closeReason) {
+		usuarios.remove(session);
+		System.out.println(closeReason.getCloseCode());
 	}
 	
 }
