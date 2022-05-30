@@ -1,5 +1,6 @@
 package br.ce.wcaquino.servicos;
 
+import static br.ce.wcaquino.matchers.MatchersProprios.caiNumaSegunda;
 import static br.ce.wcaquino.utils.DataUtils.isMesmaData;
 import static br.ce.wcaquino.utils.DataUtils.obterDataComDiferencaDias;
 import static br.ce.wcaquino.utils.DataUtils.verificarDiaSemana;
@@ -31,6 +32,8 @@ import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
 import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
 import br.ce.wcaquino.exceptions.LocadoraException;
+import br.ce.wcaquino.matchers.DiaSemanaMatcher;
+import br.ce.wcaquino.matchers.MatchersProprios;
 import br.ce.wcaquino.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -239,18 +242,26 @@ public class LocacaoServiceTest {
 	@Test
 	public void naoDeveDevolverFilmeNoDomingo() throws
 		FilmeSemEstoqueException, LocadoraException {
-		assumeTrue(verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		
+		Assume.assumeTrue(verificarDiaSemana(new Date(), Calendar.SATURDAY));
 		
 		//cenario
 		Usuario usuario = new Usuario("Loki");
 		List<Filme> filmes = Arrays.asList(
 				new Filme("Harry Potter", 1, 4.0));
+		
 		//acao
 		Locacao retorno = service.alugarFilme(usuario, filmes);
+		
 		//verificacao
-		boolean ehSegunda = DataUtils.
-				verificarDiaSemana(retorno.getDataRetorno(),
-						Calendar.MONDAY);
-		Assert.assertTrue(ehSegunda);
+		
+		// 1ª boolean ehSegunda = verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
+		// 1ª Assert.assertTrue(ehSegunda);
+		
+		// 2ª assertThat(retorno.getDataRetorno(), new DiaSemanaMatcher(Calendar.MONDAY));
+
+		// 3ª assertThat(retorno.getDataRetorno(), MatchersProprios.caiEm(Calendar.SUNDAY));
+		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
+		
 	}
 }
