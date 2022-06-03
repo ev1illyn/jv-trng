@@ -1,5 +1,7 @@
 package br.ce.wcaquino.servicos;
 
+import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
+import static br.ce.wcaquino.builders.UsuarioBuilder.umUsuario;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,6 +16,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import br.ce.wcaquino.builders.FilmeBuilder;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
@@ -39,13 +42,21 @@ public class CalculoValorLocacaoTest {
 		service = new LocacaoService();
 	}
 	
-	private static Filme interestelar = new Filme("Interestelar", 1, 4.0);
-	private static Filme shrek = new Filme("Shrek", 1, 4.0);
-	private static Filme jogosVorazes = new Filme("Jogos Vorazes", 1, 4.0);
-	private static Filme narnia = new Filme("Nárnia", 1, 4.0);
-	private static Filme divergente = new Filme("Divergente", 1, 4.0);
-	private static Filme harryPotter = new Filme("Harry Potter", 1, 4.0 );
-	private static Filme naruto = new Filme("Naruto", 1, 4.0 );
+	private static Filme interestelar = umFilme().agora();
+	private static Filme shrek = umFilme().agora();
+	private static Filme jogosVorazes = umFilme().agora();
+	private static Filme narnia = umFilme().agora();
+	private static Filme divergente = umFilme().agora();
+	private static Filme harryPotter = umFilme().agora();
+	private static Filme naruto = umFilme().agora();
+	
+//	private static Filme interestelar = new Filme("Interestelar", 1, 4.0);
+//	private static Filme shrek = new Filme("Shrek", 1, 4.0);
+//	private static Filme jogosVorazes = new Filme("Jogos Vorazes", 1, 4.0);
+//	private static Filme narnia = new Filme("Nárnia", 1, 4.0);
+//	private static Filme divergente = new Filme("Divergente", 1, 4.0);
+//	private static Filme harryPotter = new Filme("Harry Potter", 1, 4.0);
+//	private static Filme naruto = new Filme("Naruto", 1, 4.0);
 	
 	@Parameters(name="Teste {2}")
 	public static Collection<Object[]> getParametros(){
@@ -66,7 +77,7 @@ public class CalculoValorLocacaoTest {
 		LocadoraException {
 		
 		//cenario
-		Usuario usuario = new Usuario("Emilly");
+		Usuario usuario = umUsuario().agora();
 		
 		//acao
 		Locacao resultado = service.alugarFilme(usuario, filmes);
