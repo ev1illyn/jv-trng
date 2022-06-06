@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.ce.wcaquino.daos.LocacaoDAO;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
@@ -21,6 +22,8 @@ import br.ce.wcaquino.utils.DataUtils;
 
 public class LocacaoService {
 
+	private LocacaoDAO locacaoDAO;
+	
 	public Locacao alugarFilme(Usuario usuario, List<Filme> filmes) throws FilmeSemEstoqueException, LocadoraException {
 
 		// tratamento de exceções
@@ -64,8 +67,13 @@ public class LocacaoService {
 		locacao.setDataRetorno(dataEntrega);
 
 		// Salvando a locacao...
+		locacaoDAO.salvar(locacao);
 
 		return locacao;
+	}
+
+	public void setLocacaoDAO(LocacaoDAO dao) {
+		this.locacaoDAO = dao;
 	}
 
 	public static void main(String[] args) throws Exception {
