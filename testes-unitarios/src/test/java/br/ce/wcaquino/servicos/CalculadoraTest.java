@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.ce.wcaquino.exceptions.NaoPodeDividirPorZeroException;
+import junit.framework.Assert;
 
 public class CalculadoraTest {
 
@@ -58,4 +59,11 @@ public class CalculadoraTest {
 		
 	}
 	
+	@Test
+	public void deveDividir() {
+		String a = "6";
+		String b = "3";
+		int resultado = calc.divide(a, b);
+		Assert.assertEquals(2, resultado);
+	}
 }

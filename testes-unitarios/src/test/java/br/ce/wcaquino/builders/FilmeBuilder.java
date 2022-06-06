@@ -18,9 +18,10 @@ public class FilmeBuilder {
 	
 	public static FilmeBuilder umFilmeSemEstoque() {
 		FilmeBuilder builder = new FilmeBuilder();
-		builder.filme.setEstoque(0);
-		builder.filme.setNome("Interestelar");
-		builder.filme.setPrecoLocacao(4.0);
+		builder.filme = new Filme("Interestelar", 0, 4.0);
+//		builder.filme.setEstoque(0);
+//		builder.filme.setNome("Interestelar");
+//		builder.filme.setPrecoLocacao(4.0);
 		return builder;
 	}
 	
