@@ -2,6 +2,7 @@ package br.ce.wcaquino.servicos;
 
 import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
 import static br.ce.wcaquino.builders.FilmeBuilder.umFilmeSemEstoque;
+import static br.ce.wcaquino.builders.LocacaoBuilder.umLocacao;
 import static br.ce.wcaquino.builders.UsuarioBuilder.umUsuario;
 import static br.ce.wcaquino.matchers.MatchersProprios.caiNumaSegunda;
 import static br.ce.wcaquino.matchers.MatchersProprios.ehHoje;
@@ -9,13 +10,15 @@ import static br.ce.wcaquino.matchers.MatchersProprios.ehHojeComDiferencaDias;
 import static br.ce.wcaquino.utils.DataUtils.isMesmaData;
 import static br.ce.wcaquino.utils.DataUtils.obterDataComDiferencaDias;
 import static br.ce.wcaquino.utils.DataUtils.verificarDiaSemana;
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 import static org.junit.Assume.assumeFalse;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +31,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
@@ -38,10 +42,18 @@ import br.ce.wcaquino.entidades.Usuario;
 import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
 import br.ce.wcaquino.exceptions.LocadoraException;
 import buildermaster.BuilderMaster;
+import org.mockito.MockitoAnnotations;
 
 public class LocacaoServiceTest {
 
+	@InjectMocks
 	private LocacaoService service;
+
+	@Mock
+	private SPCService spc;
+
+	@Mock
+	private EmailService email;
 	
 	@Mock
 	LocacaoDAO dao;
@@ -54,9 +66,7 @@ public class LocacaoServiceTest {
 
 	@Before
 	public void setup() {
-		service = new LocacaoService();
-		dao = Mockito.mock(LocacaoDAO.class);
-		service.setLocacaoDAO(dao);
+		MockitoAnnotations.initMocks(this);
 	}
 
 	@After
@@ -71,7 +81,7 @@ public class LocacaoServiceTest {
 		
 		// cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filme = Arrays.asList(umFilme().agora());
+		List<Filme> filme = asList(umFilme().agora());
 
 		// acao
 		Locacao locacao;
@@ -119,7 +129,7 @@ public class LocacaoServiceTest {
 
 		// cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filme = Arrays.asList(umFilmeSemEstoque().agora());
+		List<Filme> filme = asList(umFilmeSemEstoque().agora());
 
 		// acao
 		service.alugarFilme(usuario, filme);
@@ -132,7 +142,7 @@ public class LocacaoServiceTest {
 
 		// cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filme = Arrays.asList(umFilme().semEstoque().agora());
+		List<Filme> filme = asList(umFilme().semEstoque().agora());
 
 		// acao
 		try {
@@ -150,7 +160,7 @@ public class LocacaoServiceTest {
 
 		// cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filme = Arrays.asList(umFilme().semEstoque().agora());
+		List<Filme> filme = asList(umFilme().semEstoque().agora());
 
 		exception.expect(Exception.class);
 		exception.expectMessage("Filme sem estoque.");
@@ -165,7 +175,7 @@ public class LocacaoServiceTest {
 		FilmeSemEstoqueException {
 
 		// cenario
-		List<Filme> filme = Arrays.asList(umFilme().comValor(8.0).agora());
+		List<Filme> filme = asList(umFilme().comValor(8.0).agora());
 		// acao
 		try {
 			service.alugarFilme(null, filme);
@@ -195,7 +205,7 @@ public class LocacaoServiceTest {
 		LocadoraException {
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(
+		List<Filme> filmes = asList(
 				new Filme("Interestelar", 1, 4.0),
 				new Filme("Shrek", 1, 4.0),
 				new Filme("Harry Potter", 1, 4.0));
@@ -210,7 +220,7 @@ public class LocacaoServiceTest {
 		LocadoraException {
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(
+		List<Filme> filmes = asList(
 				new Filme("Interestelar", 1, 4.0),
 				new Filme("Shrek", 1, 4.0),
 				new Filme("Jogos Vorazes", 1, 4.0),
@@ -226,7 +236,7 @@ public class LocacaoServiceTest {
 		LocadoraException {
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(
+		List<Filme> filmes = asList(
 				new Filme("Interestelar", 1, 4.0),
 				new Filme("Shrek", 1, 4.0),
 				new Filme("Jogos Vorazes", 1, 4.0),
@@ -243,7 +253,7 @@ public class LocacaoServiceTest {
 		LocadoraException {
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(
+		List<Filme> filmes = asList(
 				new Filme("Interestelar", 1, 4.0),
 				new Filme("Shrek", 1, 4.0),
 				new Filme("Jogos Vorazes", 1, 4.0),
@@ -264,7 +274,7 @@ public class LocacaoServiceTest {
 		
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(umFilme().agora());
+		List<Filme> filmes = asList(umFilme().agora());
 		
 		//acao
 		Locacao retorno = service.alugarFilme(usuario, filmes);
@@ -280,8 +290,68 @@ public class LocacaoServiceTest {
 		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
 		
 	}
-	
-	public static void main(String[] args) {
-		new BuilderMaster().gerarCodigoClasse(Locacao.class);
+
+	@Test
+	public void naoDeveAlugarFilmeParaNegativadoSPC() throws FilmeSemEstoqueException{
+		//cenario
+		Usuario usuario = umUsuario().agora();
+		Usuario usuario2 = umUsuario().comNome("Usuário 2").agora();
+		List<Filme> filmes = asList(umFilme().agora());
+
+		when(spc.possuiNegativacao(any(Usuario.class))).thenReturn(true);
+
+//		exception.expect(LocadoraException.class);
+//		exception.expectMessage("Usuário negativado.");
+
+		//acao
+		try {
+			service.alugarFilme(usuario, filmes);
+			//verificacao
+			Assert.fail();
+		}catch (LocadoraException e) {
+			Assert.assertThat(e.getMessage(), is("Usuário negativado."));
+		}
+
+		verify(spc).possuiNegativacao(usuario);
+
 	}
+
+	@Test
+	public void deveEnviarEmailParaLocacoesAtrasadas(){
+		//cenario
+		Usuario usuario = umUsuario().agora();
+		Usuario usuario2 = umUsuario().comNome("Emilly").agora();
+		Usuario usuario3 = umUsuario().comNome("Loki").agora();
+		List<Locacao> locacoes = asList(
+				umLocacao()
+						.atrasada()
+						.comUsuario(usuario)
+						.agora(),
+				umLocacao()
+						.comUsuario(usuario2)
+						.agora(),
+				umLocacao()
+						.atrasada()
+						.comUsuario(usuario3)
+						.agora(),
+				umLocacao()
+						.atrasada()
+						.comUsuario(usuario3)
+						.agora());
+
+		when(dao.obterLocacoesPendentes()).thenReturn(locacoes);
+
+		//acao
+		service.notificarAtrasos();
+
+		//verificacao
+		verify(email, times(3))
+				.notificarAtraso(any(Usuario.class));
+		verify(email).notificarAtraso(usuario);
+		verify(email, times(2)).notificarAtraso(usuario3);
+		verify(email, never()).notificarAtraso(usuario2);
+		verifyNoMoreInteractions(email);
+		verifyZeroInteractions(spc);
+	}
+
 }

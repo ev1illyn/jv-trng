@@ -23,7 +23,10 @@ import br.ce.wcaquino.utils.DataUtils;
 public class LocacaoService {
 
 	private LocacaoDAO locacaoDAO;
-	
+	private SPCService spcService;
+
+	private EmailService emailService;
+
 	public Locacao alugarFilme(Usuario usuario, List<Filme> filmes) throws FilmeSemEstoqueException, LocadoraException {
 
 		// tratamento de exceções
@@ -38,6 +41,9 @@ public class LocacaoService {
 			if (filme.getEstoque() == 0) {
 				throw new FilmeSemEstoqueException("Filme sem estoque.");
 			}
+		}
+		if (spcService.possuiNegativacao(usuario)){
+			throw new LocadoraException("Usuário negativado.");
 		}
 
 		Locacao locacao = new Locacao();
@@ -72,8 +78,13 @@ public class LocacaoService {
 		return locacao;
 	}
 
-	public void setLocacaoDAO(LocacaoDAO dao) {
-		this.locacaoDAO = dao;
+	public void notificarAtrasos() {
+		List<Locacao> locacoes = locacaoDAO.obterLocacoesPendentes();
+		for (Locacao locacao: locacoes) {
+			if (locacao.getDataRetorno().before(new Date())) {
+				emailService.notificarAtraso(locacao.getUsuario());
+			}
+		}
 	}
 
 	public static void main(String[] args) throws Exception {

@@ -2,21 +2,26 @@ package br.ce.wcaquino.builders;
 
 import br.ce.wcaquino.entidades.Usuario;
 
-//padrões de projeto change method e builder
+//padrï¿½es de projeto change method e builder
 public class UsuarioBuilder {
 
 	private Usuario usuario;
 	
 	private UsuarioBuilder() {}
 	
-	//método estático pode ser chamado sem criar instância dessa classe
+	//mï¿½todo estï¿½tico pode ser chamado sem criar instï¿½ncia dessa classe
 	public static UsuarioBuilder umUsuario(){
 		UsuarioBuilder builder = new UsuarioBuilder();
 		builder.usuario = new Usuario();
 		builder.usuario.setNome("Evillyn");
 		return builder;
 	}
-	
+
+	public UsuarioBuilder comNome(String nome) {
+		usuario.setNome(nome);
+		return this;
+	}
+
 	public Usuario agora() {
 		return usuario;
 	}
